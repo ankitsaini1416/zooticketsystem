@@ -12,8 +12,11 @@ const UserTicketDetails = () => {
 
   const exoticanimals = JSON.parse(localStorage.getItem("exoticAnimals"));
 
-  const active = JSON.parse(localStorage.getItem("activestatus"));
-  const assign = JSON.parse(localStorage.getItem("assignstatus"));
+  let ticketId = {
+    general: "yellow",
+    premium: "orange",
+    vip: "pink",
+  };
 
   return (
     <div>
@@ -22,7 +25,7 @@ const UserTicketDetails = () => {
         <tr>
           <th>Ticket No.</th>
           <th>Ticket Type</th>
-          <th>Quantity</th>
+
           <th>Active</th>
 
           <th>Assigned</th>
@@ -30,23 +33,32 @@ const UserTicketDetails = () => {
 
           {/* <th>Name</th> */}
         </tr>
-        <tr>
-          <td>{table.ticketNo}</td>
-          <td>{table.ticketVal}</td>
-          <td>{table.inc}</td>
-          <td>{active === true ? "true" : "false"}</td>
+        {JSON.parse(localStorage.getItem("table"))?.map((tableitem, i) => (
+          <tr>
+            <td>
+              <div
+                style={{
+                  backgroundColor: ticketId[tableitem[0]],
+                }}
+              >
+                {tableitem[1]}
+              </div>
+            </td>
+            <td id="ticketname">{tableitem[0]}</td>
+            <td>{tableitem[2] ? "true" : "false"}</td>
 
-          <td>{assign === true ? "true" : "false"}</td>
-          {/* <td>{userName[0].name}</td> */}
-          <td>
-            {bird === true ||
-            mammel === true ||
-            waterworld === true ||
-            exoticanimals === true
-              ? "Expired"
-              : "Valid"}
-          </td>
-        </tr>
+            <td>{tableitem[3] ? "true" : "false"}</td>
+            {/* <td>{userName[0].name}</td> */}
+            <td>
+              {bird === true ||
+              mammel === true ||
+              waterworld === true ||
+              exoticanimals === true
+                ? "Expired"
+                : "Valid"}
+            </td>
+          </tr>
+        ))}
       </table>
       <br />
       <br />

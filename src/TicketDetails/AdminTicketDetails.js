@@ -32,6 +32,11 @@ const AdminTicketDetails = () => {
     localStorage.setItem("exoticAnimals", exoticAnimals);
     setExoticAnimals(!exoticAnimals);
   };
+  let ticketId = {
+    general: "yellow",
+    premium: "orange",
+    vip: "pink",
+  };
 
   return (
     <div>
@@ -40,7 +45,6 @@ const AdminTicketDetails = () => {
         <tr>
           <th>Ticket No.</th>
           <th>Ticket Type</th>
-          <th>Quantity</th>
           <th>Active</th>
 
           <th>Assigned</th>
@@ -48,64 +52,85 @@ const AdminTicketDetails = () => {
 
           {/* <th>Name</th> */}
         </tr>
-        <tr>
-          <td>{table.ticketNo}</td>
-          <td>{table.ticketVal}</td>
-          <td>{table.inc}</td>
-          <td>{JSON.stringify(table.active)}</td>
+        {JSON.parse(localStorage.getItem("table"))?.map((tableitem, i) => (
+          <tr key={i}>
+            <td>
+              <div
+                style={{
+                  backgroundColor: ticketId[tableitem[0]],
+                }}
+              >
+                {/* PRE-{Math.floor(Math.random() * 10000) + 1} */}
+                {tableitem[1]}
+              </div>
+              {/* ) : ticketVal === "vip" ? (
+                              <div style={{ backgroundColor: "pink" }}>
+                                {tableitem[1]}
+                              </div>
+                            ) : (
+                              <div style={{ backgroundColor: "yellow" }}>
+                                {tableitem[1]}
+                              </div>
+                            )} */}
+            </td>
+            {/* <td>{ticketVal}</td> */}
+            <td id="ticketname">{tableitem[0]}</td>
 
-          <td>{JSON.stringify(table.assigned)}</td>
-          <td>
-            {ticketVal === "general" ? (
-              <>
-                <p>
-                  Birds
-                  <Checkbox onClick={handleClick} />
-                </p>
-                <p>
-                  Mammels
-                  <Checkbox onClick={handleClick1} />
-                </p>
-              </>
-            ) : ticketVal === "premium" ? (
-              <>
-                <p>
-                  Birds
-                  <Checkbox onClick={handleClick} />
-                </p>
-                <p>
-                  Mammels
-                  <Checkbox onClick={handleClick1} />
-                </p>
-                <p>
-                  WaterWorld
-                  <Checkbox onClick={handleClick2} />
-                </p>
-              </>
-            ) : (
-              <>
-                <p>
-                  Birds
-                  <Checkbox onClick={handleClick} />
-                </p>
-                <p>
-                  Mammels
-                  <Checkbox onClick={handleClick1} />
-                </p>
-                <p>
-                  WaterWorld
-                  <Checkbox onClick={handleClick2} />
-                </p>
-                <p>
-                  Exotic Animals
-                  <Checkbox onClick={handleClick3} />
-                </p>
-              </>
-            )}
-          </td>
+            <td>{tableitem[2]}</td>
 
-          {/* <td>{userName[0].name}</td> */}
-        </tr>
+            <td>{tableitem[3]}</td>
+            <td>
+              {tableitem[0] === "general" ? (
+                <>
+                  <p>
+                    Birds
+                    <Checkbox onClick={handleClick} />
+                  </p>
+                  <p>
+                    Mammels
+                    <Checkbox onClick={handleClick1} />
+                  </p>
+                </>
+              ) : tableitem[0] === "premium" ? (
+                <>
+                  <p>
+                    Birds
+                    <Checkbox onClick={handleClick} />
+                  </p>
+                  <p>
+                    Mammels
+                    <Checkbox onClick={handleClick1} />
+                  </p>
+                  <p>
+                    WaterWorld
+                    <Checkbox onClick={handleClick2} />
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p>
+                    Birds
+                    <Checkbox onClick={handleClick} />
+                  </p>
+                  <p>
+                    Mammels
+                    <Checkbox onClick={handleClick1} />
+                  </p>
+                  <p>
+                    WaterWorld
+                    <Checkbox onClick={handleClick2} />
+                  </p>
+                  <p>
+                    Exotic Animals
+                    <Checkbox onClick={handleClick3} />
+                  </p>
+                </>
+              )}
+            </td>
+
+            {/* <td>{buyTicket === true ? userName[0].name : null}</td> */}
+          </tr>
+        ))}
       </table>
       <br />
       <br />

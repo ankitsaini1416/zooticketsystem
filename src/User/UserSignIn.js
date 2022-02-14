@@ -2,7 +2,7 @@ import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
+// import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
@@ -12,9 +12,10 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Formik, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import { Formik, Form, ErrorMessage, Field } from "formik";
+// import * as Yup from "yup";
 import TextError from "./TextError";
+import { useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -49,16 +50,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function UserSignIn() {
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+  let history = useHistory();
   const classes = useStyles();
-  const validationSchema = Yup.object({
-    email: Yup.string().required("Email Required !"),
 
-    password: Yup.string().required("Password Required !"),
-  });
+  const onSubmit = function (values, { resetForm }) {
+    localStorage.setItem("UserSigninValues", JSON.stringify(values));
+    resetForm();
+    return history.push("/ticketlist");
+  };
 
   return (
     <>
-      <Formik validationSchema={validationSchema}>
+      <Formik initialValues={initialValues} onSubmit={onSubmit}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
@@ -69,11 +76,12 @@ export default function UserSignIn() {
               User Sign in
             </Typography>
             <Form>
-              <TextField
+              <Field
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
+                placeholder="email"
                 id="email"
                 label="Email Address"
                 name="email"
@@ -86,11 +94,12 @@ export default function UserSignIn() {
                 className="error"
                 component={TextError}
               />
-              <TextField
+              <Field
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
+                placeholder="password"
                 name="password"
                 label="Password"
                 type="password"
@@ -113,7 +122,7 @@ export default function UserSignIn() {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                href="/ticketlist"
+                // href="/ticketlist"
               >
                 Sign In
               </Button>
