@@ -54,8 +54,6 @@ const useStyles = makeStyles((theme) => ({
 const UserSignUp = () => {
   let history = useHistory();
   const initialValues = {
-    // id:uuidv4(),
-    // id:new Date().getTime().toString(),
     name: "",
     phonenumber: "",
     email: "",
@@ -68,7 +66,7 @@ const UserSignUp = () => {
     existingEntries.push(values);
     localStorage.setItem("UserValues", JSON.stringify(existingEntries));
     resetForm();
-    return history.push("/usersignin");
+    return history.push("/user/usersignin");
   };
 
   return (

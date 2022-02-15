@@ -1,12 +1,8 @@
 import * as React from "react";
 import { styled } from "@mui/system";
 import TablePaginationUnstyled from "@mui/base/TablePaginationUnstyled";
-// import { Tooltip } from "@mui/material";
-import { NavLink } from "react-router-dom";
 
-// function createData(name, calories, fat) {
-//   return { name, calories, fat };
-// }
+import { NavLink } from "react-router-dom";
 
 const rows = JSON.parse(localStorage.getItem("UserValues"));
 
@@ -117,7 +113,6 @@ export default function UsersList() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -192,7 +187,7 @@ export default function UsersList() {
       <br />
       <br />
 
-      <NavLink to="/bookticket">Show Ticket</NavLink>
+      <NavLink to="/admin/addticket">Show Ticket</NavLink>
     </Root>
   );
 }

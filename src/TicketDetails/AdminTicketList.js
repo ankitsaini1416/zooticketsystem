@@ -3,12 +3,13 @@ import React from "react";
 
 const AdminTicketList = () => {
   const userName = JSON.parse(localStorage.getItem("UserValues"));
+  const userSignin = JSON.parse(localStorage.getItem("UserSigninValues"));
+
   console.log("userName", JSON.stringify(userName.name));
   const table = JSON.parse(localStorage.getItem("table"));
   console.log("table", table);
   const buyticket = JSON.parse(localStorage.getItem("buytickets"));
-  const active = JSON.parse(localStorage.getItem("activestatus"));
-  const assign = JSON.parse(localStorage.getItem("assignstatus"));
+
   let ticketId = {
     general: "yellow",
     premium: "orange",
@@ -23,7 +24,6 @@ const AdminTicketList = () => {
           <th>Ticket No.</th>
           <th>Ticket Type</th>
           <th>Active</th>
-
           <th>Assigned</th>
           <th>Name</th>
         </tr>
@@ -40,16 +40,22 @@ const AdminTicketList = () => {
             </td>
             <td id="ticketname">{tableitem[0]}</td>
             <td>{tableitem[2] ? "true" : "false"}</td>
-
             <td>{tableitem[3] ? "true" : "false"}</td>
-            {/* <td>{userName[0].name}</td> */}
-            <td>{buyticket === true ? userName[0].name : null}</td>
+            <td>
+              {buyticket === true
+                ? userName.map((currVal) => {
+                    if (currVal.email === userSignin.email) {
+                      return currVal.name;
+                    }
+                  })
+                : null}
+            </td>
           </tr>
         ))}
       </table>
       <br />
       <br />
-      <Button href="/adminticketdetails">Admin Ticket Details</Button>
+      <Button href="/admin/adminticketdetails">Admin Ticket Details</Button>
     </div>
   );
 };

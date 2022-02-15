@@ -1,5 +1,6 @@
 import { Button } from "@material-ui/core";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 let ticketId = {
   general: "yellow",
@@ -7,9 +8,8 @@ let ticketId = {
   vip: "pink",
 };
 
-const TicketList = () => {
-  // const table = localStorage.getItem("table");
-  // console.log("table", table);
+const TicketList = (props) => {
+  console.log("pro", props);
   const userName = JSON.parse(localStorage.getItem("UserValues"));
   console.log("userName", JSON.stringify(userName.name));
   const table = JSON.parse(localStorage.getItem("table"));
@@ -30,7 +30,6 @@ const TicketList = () => {
           <th>Active</th>
 
           <th>Assigned</th>
-          {/* <th>Name</th> */}
         </tr>
         {JSON.parse(localStorage.getItem("table"))?.map((tableitem, i) => (
           <tr>
@@ -47,54 +46,28 @@ const TicketList = () => {
             <td>{tableitem[2] ? "true" : "false"}</td>
 
             <td>{tableitem[3] ? "true" : "false"}</td>
-            {/* <td>{userName[0].name}</td> */}
+            <td>
+              <Link
+                onClick={handleClick}
+                to={{
+                  pathname: "/user/userticketdetails",
+                  search: "?sort=name",
+                  hash: "#the-hash",
+                  state: tableitem,
+                }}
+              >
+                Buy
+              </Link>
+            </td>
           </tr>
         ))}
       </table>
       <br /> <br /> <br /> <br />
-      {/* <table>   
-        <tr>
-          <th>Unassigned tickets</th>
-          <th>Assigned tickets</th>
-        </tr>
-        <tr>
-          <td>
-            {localStorage.getItem("ticketType") === "premium" ? (
-              <>
-                <p style={{ backgroundColor: "yellow" }}>General</p>
-                <br />
-                <p style={{ backgroundColor: "pink" }}>VIP</p>
-              </>
-            ) : localStorage.getItem("ticketType") === "vip" ? (
-              <>
-                <p style={{ backgroundColor: "yellow" }}>General</p>
-                <br />
-                <p style={{ backgroundColor: "orange" }}>premium</p>
-              </>
-            ) : (
-              <>
-                <p style={{ backgroundColor: "orange" }}>premium</p>
-                <br />
-                <p style={{ backgroundColor: "pink" }}>VIP</p>
-              </>
-            )}
-          </td>
-          <td>
-            {localStorage.getItem("ticketType") === "premium" ? (
-              <p style={{ backgroundColor: "orange" }}>Premium</p>
-            ) : localStorage.getItem("ticketType") === "vip" ? (
-              <p style={{ backgroundColor: "pink" }}>VIP</p>
-            ) : (
-              <p style={{ backgroundColor: "yellow" }}>General</p>
-            )}
-          </td>
-        </tr>
-      </table> */}
       <br />
       <br />
-      <Button href="/userticketdetails" onClick={handleClick}>
+      {/* <Button href="/user/userticketdetails" onClick={handleClick}>
         Buy Ticket
-      </Button>
+      </Button> */}
     </div>
   );
 };

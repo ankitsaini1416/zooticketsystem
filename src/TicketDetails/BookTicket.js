@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { addTodo, deleteTodo } from "../actions";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+// import { addTodo, deleteTodo } from "../actions";
+import { addTodo } from "../actions";
+
 // import { FontAwesomeIcon } from "font-awesome";
 // import { incNumber, decNumber } from "../actions";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -37,15 +39,16 @@ const BookTicket = () => {
     premium: "orange",
     vip: "pink",
   };
-
-  // const myState = useSelector((state) => state.changeTheNumber);
-  // const onSubmit = function (values, { resetForm }) {
-  //   var existingEntries = JSON.parse(localStorage.getItem("table"));
-  //   if (existingEntries == null) existingEntries = [];
-  //   existingEntries.push(values);
-  //   localStorage.setItem("table", JSON.stringify(existingEntries));
-  //   resetForm();
-  // };
+  let visitField = {
+    general: { bird: false, mammel: false },
+    premium: { bird: false, mammel: false, waterworld: false },
+    vip: {
+      bird: false,
+      mammel: false,
+      waterworld: false,
+      exoticanimals: false,
+    },
+  };
 
   const addingSome = () => {
     let values = {
@@ -65,7 +68,13 @@ const BookTicket = () => {
       if (existingEntries == null) existingEntries = [];
       console.log("existingEntries", existingEntries, values);
       let arr = [];
-      arr.push([values.ticketName, tk, active, assigned]);
+      arr.push([
+        values.ticketName,
+        tk,
+        active,
+        assigned,
+        visitField[values.ticketName],
+      ]);
       existingEntries = [...existingEntries, ...arr];
       console.log(existingEntries, arr, JSON.stringify(existingEntries));
       dispatch(
@@ -74,22 +83,9 @@ const BookTicket = () => {
           setInc(0)
         )
       );
-      //   dispatch(
-      //     addTodo(
-      //       localStorage.setItem(
-      //         "table",
-      //         JSON.stringify({
-      //           ticketVal,
-      //           inc,
-      //           ticketNo: tk,
-      //         }),
-      //         setInc(0)
-      //       )
-      //     )
-      //   );
     }
   };
-  const list = useSelector((state) => state.todoReducers.list);
+
   const dispatch = useDispatch();
   const handleChange = (event) => {
     localStorage.setItem("ticketType", event.target.value);
@@ -98,7 +94,6 @@ const BookTicket = () => {
   const userName = JSON.parse(localStorage.getItem("UserValues"));
   console.log("userName", userName.name);
 
-  // const buyTicket = JSON.parse(localStorage.getItem("buytickets"));/
   return (
     <>
       <div className="main-div">
@@ -125,12 +120,6 @@ const BookTicket = () => {
             <figcaption>Select Your Ticket</figcaption>
           </figure>
           <div className="addItems">
-            {/* <input
-              type="text"
-              placeholder="Add items.."
-              value={inputData}
-              onChange={(event) => setInputData(event.target.value)}
-            /> */}
             <select
               name="cars"
               id="ticket"
@@ -160,17 +149,11 @@ const BookTicket = () => {
             >
               <span> + </span>
             </Button>
-            {/* <FontAwesomeIcon icon="fa-solid fa-plus" /> */}
+
             <button
               type="submit"
               className="fa-solid fa-plus"
-              onClick={() =>
-                // localStorage.setItem(
-                //   "table",
-                //   JSON.stringify(dispatch(addTodo(inputData)), setInputData(""))
-                // )
-                addingSome()
-              }
+              onClick={() => addingSome()}
             >
               Add
             </button>
@@ -183,7 +166,6 @@ const BookTicket = () => {
                 <th>Ticket Type</th>
                 <th>Active</th>
                 <th>Assigned</th>
-                {/* <th>Name</th> */}
               </tr>
               {JSON.parse(localStorage.getItem("table"))?.map(
                 (tableitem, i) => (
@@ -194,20 +176,10 @@ const BookTicket = () => {
                           backgroundColor: ticketId[tableitem[0]],
                         }}
                       >
-                        {/* PRE-{Math.floor(Math.random() * 10000) + 1} */}
                         {tableitem[1]}
                       </div>
-                      {/* ) : ticketVal === "vip" ? (
-                              <div style={{ backgroundColor: "pink" }}>
-                                {tableitem[1]}
-                              </div>
-                            ) : (
-                              <div style={{ backgroundColor: "yellow" }}>
-                                {tableitem[1]}
-                              </div>
-                            )} */}
                     </td>
-                    {/* <td>{ticketVal}</td> */}
+
                     <td id="ticketname">{tableitem[0]}</td>
 
                     <td id="activestatus">
@@ -218,18 +190,12 @@ const BookTicket = () => {
                       <Checkbox onClick={() => handleClick1(i)} />
                       {tableitem[3] ? "true" : "false"}
                     </td>
-
-                    {/* <td>{buyTicket === true ? userName[0].name : null}</td> */}
                   </tr>
                 )
               )}
             </table>
             <div className="todo-btn">
-              <i
-                className="far fa-trash-alt add-btn"
-                title="delete item"
-                // onClick={() => dispatch(deleteTodo(elem.id))}
-              />
+              <i className="far fa-trash-alt add-btn" title="delete item" />
             </div>
           </div>
 
@@ -237,7 +203,7 @@ const BookTicket = () => {
             <Button
               className="btn effect04"
               data-sm-link-text="removeAll"
-              href="adminticketlist"
+              href="/admin/adminticketlist"
             >
               <span>user Ticket List</span>
             </Button>

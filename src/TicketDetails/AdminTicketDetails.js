@@ -6,30 +6,44 @@ const AdminTicketDetails = () => {
   console.log("userName", JSON.stringify(userName.name));
   const table = JSON.parse(localStorage.getItem("table"));
   console.log("table", table);
-  const ticketVal = localStorage.getItem("ticketType");
-  const active = localStorage.getItem("activestatus");
-  const assign = localStorage.getItem("assignstatus");
 
-  const [birds, setBirds] = useState(true);
-  const handleClick = () => {
+  const [birds, setBirds] = useState(false);
+  const data = JSON.parse(localStorage.getItem("table"));
+
+  const handleClick = (i) => {
+    console.log("data", data, i);
+    data[i][4].bird = birds;
     localStorage.setItem("birds", birds);
-    setBirds(!birds, !active);
-    localStorage.setItem("activestatus", !active);
-    localStorage.setItem("assignstatus", !assign);
+
+    localStorage.setItem("table", JSON.stringify(data));
+
+    setBirds(!birds);
   };
-  const [mammels, setMammels] = useState(true);
-  const handleClick1 = () => {
+  const [mammels, setMammels] = useState(false);
+  const handleClick1 = (i) => {
+    data[i][4].mammel = mammels;
+
     localStorage.setItem("mammels", mammels);
+    localStorage.setItem("table", JSON.stringify(data));
+
     setMammels(!mammels);
   };
   const [waterWorld, setWaterWorld] = useState(true);
-  const handleClick2 = () => {
+  const handleClick2 = (i) => {
+    data[i][4].waterworld = waterWorld;
+
     localStorage.setItem("waterWorld", waterWorld);
+    localStorage.setItem("table", JSON.stringify(data));
+
     setWaterWorld(!waterWorld);
   };
   const [exoticAnimals, setExoticAnimals] = useState(true);
-  const handleClick3 = () => {
+  const handleClick3 = (i) => {
+    data[i][4].exoticanimals = exoticAnimals;
+
     localStorage.setItem("exoticAnimals", exoticAnimals);
+    localStorage.setItem("table", JSON.stringify(data));
+
     setExoticAnimals(!exoticAnimals);
   };
   let ticketId = {
@@ -49,8 +63,6 @@ const AdminTicketDetails = () => {
 
           <th>Assigned</th>
           <th>Manage Time</th>
-
-          {/* <th>Name</th> */}
         </tr>
         {JSON.parse(localStorage.getItem("table"))?.map((tableitem, i) => (
           <tr key={i}>
@@ -60,20 +72,10 @@ const AdminTicketDetails = () => {
                   backgroundColor: ticketId[tableitem[0]],
                 }}
               >
-                {/* PRE-{Math.floor(Math.random() * 10000) + 1} */}
                 {tableitem[1]}
               </div>
-              {/* ) : ticketVal === "vip" ? (
-                              <div style={{ backgroundColor: "pink" }}>
-                                {tableitem[1]}
-                              </div>
-                            ) : (
-                              <div style={{ backgroundColor: "yellow" }}>
-                                {tableitem[1]}
-                              </div>
-                            )} */}
             </td>
-            {/* <td>{ticketVal}</td> */}
+
             <td id="ticketname">{tableitem[0]}</td>
 
             <td>{tableitem[2]}</td>
@@ -84,51 +86,58 @@ const AdminTicketDetails = () => {
                 <>
                   <p>
                     Birds
-                    <Checkbox onClick={handleClick} />
+                    <Checkbox onClick={() => handleClick(i)} />
+                    {tableitem[4].bird ? "true" : "false"}
                   </p>
                   <p>
                     Mammels
-                    <Checkbox onClick={handleClick1} />
+                    <Checkbox onClick={() => handleClick1(i)} />
+                    {tableitem[4].mammel ? "true" : "false"}
                   </p>
                 </>
               ) : tableitem[0] === "premium" ? (
                 <>
                   <p>
                     Birds
-                    <Checkbox onClick={handleClick} />
+                    <Checkbox onClick={() => handleClick(i)} />
+                    {tableitem[4].bird ? "true" : "false"}
                   </p>
                   <p>
                     Mammels
-                    <Checkbox onClick={handleClick1} />
+                    <Checkbox onClick={() => handleClick1(i)} />
+                    {tableitem[4].mammel ? "true" : "false"}
                   </p>
                   <p>
                     WaterWorld
-                    <Checkbox onClick={handleClick2} />
+                    <Checkbox onClick={() => handleClick2(i)} />
+                    {tableitem[4].waterworld ? "true" : "false"}
                   </p>
                 </>
               ) : (
                 <>
                   <p>
                     Birds
-                    <Checkbox onClick={handleClick} />
+                    <Checkbox onClick={() => handleClick(i)} />
+                    {tableitem[4].bird ? "true" : "false"}
                   </p>
                   <p>
                     Mammels
-                    <Checkbox onClick={handleClick1} />
+                    <Checkbox onClick={() => handleClick1(i)} />
+                    {tableitem[4].mammel ? "true" : "false"}
                   </p>
                   <p>
                     WaterWorld
-                    <Checkbox onClick={handleClick2} />
+                    <Checkbox onClick={() => handleClick2(i)} />
+                    {tableitem[4].waterworld ? "true" : "false"}
                   </p>
                   <p>
                     Exotic Animals
-                    <Checkbox onClick={handleClick3} />
+                    <Checkbox onClick={() => handleClick3(i)} />
+                    {tableitem[4].exoticanimals ? "true" : "false"}
                   </p>
                 </>
               )}
             </td>
-
-            {/* <td>{buyTicket === true ? userName[0].name : null}</td> */}
           </tr>
         ))}
       </table>

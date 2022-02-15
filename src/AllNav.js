@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const Navbar = () => {
+const AllNav = () => {
   return (
     <>
       <div className="container-fluid nav_bg">
@@ -20,9 +20,9 @@ const Navbar = () => {
                         className="disabled"
                         exact
                         // className="nav-link"
-                        to="/admin/adminlogin"
+                        to="/admin/UsersList"
                       >
-                        Admin Log In
+                        usersList
                       </NavLink>
                     </li>
                     <li className="nav-item">
@@ -31,9 +31,9 @@ const Navbar = () => {
                         className="disabled"
                         exact
                         // className="nav-link"
-                        to="/user/usersignup"
+                        to="/admin/addticket"
                       >
-                        User SignUp
+                        addTicket
                       </NavLink>
                     </li>
                     <li className="nav-item">
@@ -42,9 +42,42 @@ const Navbar = () => {
                         className="disabled"
                         exact
                         // className="nav-link"
-                        to="/user/usersignin"
+                        to="/admin/adminticketlist"
                       >
-                        User SignIn
+                        adminTicketList
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink
+                        activeClassName="menu-active"
+                        className="disabled"
+                        exact
+                        // className="nav-link"
+                        to="/user/ticketlist"
+                      >
+                        UserTicketList
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink
+                        activeClassName="menu-active"
+                        className="disabled"
+                        exact
+                        // className="nav-link"
+                        to="/user/userticketdetails"
+                      >
+                        UserTicketDetails
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink
+                        activeClassName="menu-active"
+                        className="disabled"
+                        exact
+                        // className="nav-link"
+                        to="/admin/adminticketdetails"
+                      >
+                        AdminTicketDetails
                       </NavLink>
                     </li>
                   </ul>
@@ -58,4 +91,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default AllNav;

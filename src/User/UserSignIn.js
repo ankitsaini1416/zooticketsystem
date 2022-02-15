@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -60,7 +60,7 @@ export default function UserSignIn() {
   const onSubmit = function (values, { resetForm }) {
     localStorage.setItem("UserSigninValues", JSON.stringify(values));
     resetForm();
-    return history.push("/ticketlist");
+    return history.push("/user/ticketlist");
   };
 
   return (
@@ -122,7 +122,6 @@ export default function UserSignIn() {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                // href="/ticketlist"
               >
                 Sign In
               </Button>
