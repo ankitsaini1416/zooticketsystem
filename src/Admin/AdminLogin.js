@@ -12,9 +12,10 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Formik, Form, ErrorMessage } from "formik";
+import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
 import TextError from "./TextError";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,75 +36,69 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
+const initialValues = {
+  email: "",
+  password: "",
+};
 export default function AdminLogin() {
+  let history = useHistory();
+
   const classes = useStyles();
   const validationSchema = Yup.object({
     email: Yup.string().required("Email Required !"),
 
     password: Yup.string().required("Password Required !"),
   });
+  const onSubmit = function () {
+    return history.push("/admin/UsersList");
+  };
 
   return (
     <>
-      <Formik validationSchema={validationSchema}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Admin Sign in
-            </Typography>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            User Sign in
+          </Typography>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
             <Form>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
+              <lable htmlFor="email">Email:</lable>
+              <br />
+              <Field type="email" id="email" name="email" />
               <br />
               <ErrorMessage
                 name="email"
                 className="error"
                 component={TextError}
               />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
+              <br />
+
+              <lable htmlFor="password">Password:</lable>
+              <br />
+              <Field type="password" id="password" name="password" />
               <br />
               <ErrorMessage
                 name="password"
                 className="error"
                 component={TextError}
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+              <br />
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                href="/admin/UsersList"
               >
-                Ticket List
+                Sign In
               </Button>
               <Grid container>
                 <Grid item xs>
@@ -118,10 +113,10 @@ export default function AdminLogin() {
                 </Grid>
               </Grid>
             </Form>
-          </div>
-          <Box mt={8}></Box>
-        </Container>
-      </Formik>
+          </Formik>
+        </div>
+        <Box mt={8}></Box>
+      </Container>
     </>
   );
 }

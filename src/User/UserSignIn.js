@@ -3,8 +3,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 // import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -13,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Formik, Form, ErrorMessage, Field } from "formik";
-// import * as Yup from "yup";
+import * as Yup from "yup";
 import TextError from "./TextError";
 import { useHistory } from "react-router-dom";
 
@@ -48,12 +47,16 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
+const initialValues = {
+  email: "",
+  password: "",
+};
 export default function UserSignIn() {
-  const initialValues = {
-    email: "",
-    password: "",
-  };
+  const validationSchema = Yup.object({
+    email: Yup.string().required("Email Required !"),
+
+    password: Yup.string().required("Password Required !"),
+  });
   let history = useHistory();
   const classes = useStyles();
 
@@ -65,57 +68,42 @@ export default function UserSignIn() {
 
   return (
     <>
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              User Sign in
-            </Typography>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            User Sign in
+          </Typography>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
             <Form>
-              <Field
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                placeholder="email"
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
+              <lable htmlFor="email">Email:</lable>
+              <br />
+              <Field type="email" id="email" name="email" />
               <br />
               <ErrorMessage
                 name="email"
                 className="error"
                 component={TextError}
               />
-              <Field
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                placeholder="password"
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
+              <br />
+
+              <lable htmlFor="password">Password:</lable>
+              <br />
+              <Field type="password" id="password" name="password" />
               <br />
               <ErrorMessage
                 name="password"
                 className="error"
                 component={TextError}
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+              <br />
               <Button
                 type="submit"
                 fullWidth
@@ -138,12 +126,12 @@ export default function UserSignIn() {
                 </Grid>
               </Grid>
             </Form>
-          </div>
-          <Box mt={8}>
-            <Copyright />
-          </Box>
-        </Container>
-      </Formik>
+          </Formik>
+        </div>
+        <Box mt={8}>
+          <Copyright />
+        </Box>
+      </Container>
     </>
   );
 }

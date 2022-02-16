@@ -15,11 +15,21 @@ const TicketList = (props) => {
   const table = JSON.parse(localStorage.getItem("table"));
   console.log("table", table);
   const [buyTicket, setBuyTicket] = useState(true);
-  const handleClick = () => {
-    localStorage.setItem("buytickets", buyTicket);
+  const handleClick = (i) => {
+    const data = JSON.parse(localStorage.getItem("table"));
+    // const passTicketData = JSON.parse(localStorage.getItem("passTicket"));
+
+    data[i][2] = buyTicket;
+    data[i][3] = buyTicket;
+    // passTicketData[i][2] = buyTicket;
+    // passTicketData[i][3] = buyTicket;
+
+    localStorage.setItem("buy", buyTicket);
+    localStorage.setItem("table", JSON.stringify(data));
+    // localStorage.setItem("passTicket", JSON.stringify(passTicketData));
+
     setBuyTicket(!buyTicket);
   };
-
   return (
     <div>
       <h1>Ticket List</h1>
@@ -47,17 +57,20 @@ const TicketList = (props) => {
 
             <td>{tableitem[3] ? "true" : "false"}</td>
             <td>
-              <Link
-                onClick={handleClick}
-                to={{
-                  pathname: "/user/userticketdetails",
-                  search: "?sort=name",
-                  hash: "#the-hash",
-                  state: tableitem,
-                }}
-              >
-                Buy
-              </Link>
+              {tableitem[3] === true ? (
+                "buyed"
+              ) : (
+                <Link
+                  onClick={() => handleClick(i)}
+                  to={{
+                    pathname: "/user/userticketdetails",
+
+                    state: tableitem,
+                  }}
+                >
+                  Buy
+                </Link>
+              )}
             </td>
           </tr>
         ))}

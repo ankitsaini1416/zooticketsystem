@@ -8,6 +8,7 @@ import { addTodo } from "../actions";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Button } from "@material-ui/core";
 const BookTicket = () => {
+  const userSignin = JSON.parse(localStorage.getItem("UserSigninValues"));
   // console.log("ticketVal", ticketVal);
   // const [inputData, setInputData] = useState("");
   const [inc, setInc] = useState(0);
@@ -16,23 +17,23 @@ const BookTicket = () => {
   const ticketVal = localStorage.getItem("ticketType");
   const [assigned, setAssigned] = useState(false);
 
-  const handleClick = (i) => {
-    const data = JSON.parse(localStorage.getItem("table"));
+  // const handleClick = (i) => {
+  //   const data = JSON.parse(localStorage.getItem("table"));
 
-    data[i][2] = active;
-    localStorage.setItem("activestatus", active);
-    localStorage.setItem("table", JSON.stringify(data));
-    setActive(!active);
-  };
-  const handleClick1 = (i) => {
-    const data1 = JSON.parse(localStorage.getItem("table"));
-    data1[i][3] = assigned;
+  //   data[i][2] = active;
+  //   localStorage.setItem("activestatus", active);
+  //   localStorage.setItem("table", JSON.stringify(data));
+  //   setActive(!active);
+  // };
+  // const handleClick1 = (i) => {
+  //   const data1 = JSON.parse(localStorage.getItem("table"));
+  //   data1[i][3] = assigned;
 
-    localStorage.setItem("assignstatus", assigned);
-    localStorage.setItem("table", JSON.stringify(data1));
+  //   localStorage.setItem("assignstatus", assigned);
+  //   localStorage.setItem("table", JSON.stringify(data1));
 
-    setAssigned(!assigned);
-  };
+  //   setAssigned(!assigned);
+  // };
 
   let ticketId = {
     general: "yellow",
@@ -92,7 +93,7 @@ const BookTicket = () => {
   };
 
   const userName = JSON.parse(localStorage.getItem("UserValues"));
-  console.log("userName", userName.name);
+  // console.log("userName", userName.name);
 
   return (
     <>
@@ -163,10 +164,17 @@ const BookTicket = () => {
             <table>
               <tr>
                 <th>ticketNo</th>
-                <th>Ticket Type</th>
+                <th>TicketType</th>
                 <th>Active</th>
                 <th>Assigned</th>
+
+                {JSON.parse(localStorage.getItem("table"))?.map(
+                  (tableitem, i) => (
+                    <th key={i}>{tableitem[3] === true ? "Name" : ""}</th>
+                  )
+                )}
               </tr>
+
               {JSON.parse(localStorage.getItem("table"))?.map(
                 (tableitem, i) => (
                   <tr key={i}>
@@ -183,12 +191,22 @@ const BookTicket = () => {
                     <td id="ticketname">{tableitem[0]}</td>
 
                     <td id="activestatus">
-                      <Checkbox onClick={() => handleClick(i)} />
+                      {/* <Checkbox onClick={() => handleClick(i)} /> */}
                       {tableitem[2] ? "true" : "false"}
                     </td>
                     <td id="assignstatus">
-                      <Checkbox onClick={() => handleClick1(i)} />
+                      {/* <Checkbox onClick={() => handleClick1(i)} /> */}
                       {tableitem[3] ? "true" : "false"}
+                    </td>
+
+                    <td>
+                      {tableitem[3] === true
+                        ? userName.map((currVal) => {
+                            if (currVal.email === userSignin.email) {
+                              return currVal.name;
+                            }
+                          })
+                        : null}
                     </td>
                   </tr>
                 )

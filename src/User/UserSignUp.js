@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Formik, Form, ErrorMessage } from "formik";
-// import * as Yup from "yup";
+import * as Yup from "yup";
 import TextError from "./TextError";
 import { Field } from "formik";
 // import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
@@ -58,7 +58,16 @@ const UserSignUp = () => {
     phonenumber: "",
     email: "",
     password: "",
+    filename: "",
   };
+  const validationSchema = Yup.object({
+    name: Yup.string().required("Name Required !"),
+    phonenumber: Yup.string().required("PhoneNumber Required !"),
+
+    email: Yup.string().required("Email Required !"),
+
+    password: Yup.string().required("Password Required !"),
+  });
   const classes = useStyles();
   const onSubmit = function (values, { resetForm }) {
     var existingEntries = JSON.parse(localStorage.getItem("UserValues"));
@@ -80,47 +89,38 @@ const UserSignUp = () => {
           <Typography component="h1" variant="h5">
             User Sign Up
           </Typography>
-          <Formik initialValues={initialValues} onSubmit={onSubmit}>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={onSubmit}
+            validationSchema={validationSchema}
+          >
             <Form>
               <Field type="file" id="myFile" name="filename" />
-              <Field
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                placeholder="name"
-                id="name"
-                label="Name"
+
+              <br />
+              <lable htmlFor="name">Name:</lable>
+              <br />
+              <Field type="name" id="name" name="name" />
+              <br />
+              <ErrorMessage
                 name="name"
-                autoComplete="name"
-                autoFocus
+                className="error"
+                component={TextError}
               />
               <br />
-              <Field
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                placeholder="phonenumber"
-                id="phonenumber"
-                label="Phon Number"
+              <lable htmlFor="phonenumber">PhoneNumber:</lable>
+              <br />
+              <Field type="phonenumber" id="phonenumber" name="phonenumber" />
+              <br />
+              <ErrorMessage
                 name="phonenumber"
-                autoComplete="phonenumber"
-                autoFocus
+                className="error"
+                component={TextError}
               />
               <br />
-              <Field
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                placeholder="email"
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
+              <lable htmlFor="email">Email:</lable>
+              <br />
+              <Field type="email" id="email" name="email" />
               <br />
               <ErrorMessage
                 name="email"
@@ -128,28 +128,17 @@ const UserSignUp = () => {
                 component={TextError}
               />
               <br />
-              <Field
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                placeholder="password"
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
+
+              <lable htmlFor="password">Password:</lable>
+              <br />
+              <Field type="password" id="password" name="password" />
               <br />
               <ErrorMessage
                 name="password"
                 className="error"
                 component={TextError}
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+              <br />
               <Button
                 type="submit"
                 fullWidth

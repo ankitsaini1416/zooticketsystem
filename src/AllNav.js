@@ -69,7 +69,7 @@ const AllNav = () => {
                         UserTicketDetails
                       </NavLink>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <NavLink
                         activeClassName="menu-active"
                         className="disabled"
@@ -79,7 +79,7 @@ const AllNav = () => {
                       >
                         AdminTicketDetails
                       </NavLink>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div>
