@@ -1,40 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { addTodo, deleteTodo } from "../actions";
 import { addTodo } from "../actions";
 import AllNav from "../AllNav";
 
-// import { FontAwesomeIcon } from "font-awesome";
-// import { incNumber, decNumber } from "../actions";
-// import Checkbox from "@material-ui/core/Checkbox";
 import { Button } from "@material-ui/core";
 const BookTicket = () => {
-  // const userSignin = JSON.parse(localStorage.getItem("UserSigninValues"));
-  // console.log("ticketVal", ticketVal);
-  // const [inputData, setInputData] = useState("");
   const [inc, setInc] = useState(0);
   const [ticketNo, setTicketNo] = useState("");
   const [active] = useState(false);
   const ticketVal = localStorage.getItem("ticketType");
   const [assigned] = useState(false);
-
-  // const handleClick = (i) => {
-  //   const data = JSON.parse(localStorage.getItem("table"));
-
-  //   data[i][2] = active;
-  //   localStorage.setItem("activestatus", active);
-  //   localStorage.setItem("table", JSON.stringify(data));
-  //   setActive(!active);
-  // };
-  // const handleClick1 = (i) => {
-  //   const data1 = JSON.parse(localStorage.getItem("table"));
-  //   data1[i][3] = assigned;
-
-  //   localStorage.setItem("assignstatus", assigned);
-  //   localStorage.setItem("table", JSON.stringify(data1));
-
-  //   setAssigned(!assigned);
-  // };
 
   let ticketId = {
     general: "yellow",
@@ -65,10 +40,8 @@ const BookTicket = () => {
           ? "VIP-" + Math.floor(Math.random() * 10000) + 1
           : "GEN-" + Math.floor(Math.random() * 10000) + 1;
       setTicketNo(tk);
-      console.log("tk", tk);
       var existingEntries = JSON.parse(localStorage.getItem("table"));
       if (existingEntries == null) existingEntries = [];
-      console.log("existingEntries", existingEntries, values);
       let arr = [];
       arr.push([
         values.ticketName,
@@ -78,7 +51,6 @@ const BookTicket = () => {
         visitField[values.ticketName],
       ]);
       existingEntries = [...existingEntries, ...arr];
-      console.log(existingEntries, arr, JSON.stringify(existingEntries));
       dispatch(
         addTodo(
           localStorage.setItem("table", JSON.stringify(existingEntries)),
@@ -92,9 +64,6 @@ const BookTicket = () => {
   const handleChange = (event) => {
     localStorage.setItem("ticketType", event.target.value);
   };
-
-  // const userName = JSON.parse(localStorage.getItem("UserValues"));
-  // console.log("userName", userName.name);
 
   return (
     <>
@@ -161,7 +130,6 @@ const BookTicket = () => {
               Add
             </button>
           </div>
-          {console.log("ticketNo", ticketNo)}
           <div className="showItems">
             <table>
               <tr>
@@ -169,12 +137,6 @@ const BookTicket = () => {
                 <th>TicketType</th>
                 <th>Active</th>
                 <th>Assigned</th>
-
-                {/* {JSON.parse(localStorage.getItem("table"))?.map(
-                  (tableitem, i) => (
-                    <th key={i}>{tableitem[3] === true ? "Name" : ""}</th>
-                  )
-                )} */}
               </tr>
 
               {JSON.parse(localStorage.getItem("table"))?.map(
@@ -192,24 +154,8 @@ const BookTicket = () => {
 
                     <td id="ticketname">{tableitem[0]}</td>
 
-                    <td id="activestatus">
-                      {/* <Checkbox onClick={() => handleClick(i)} /> */}
-                      {tableitem[2] ? "true" : "false"}
-                    </td>
-                    <td id="assignstatus">
-                      {/* <Checkbox onClick={() => handleClick1(i)} /> */}
-                      {tableitem[3] ? "true" : "false"}
-                    </td>
-
-                    {/* <td>
-                      {tableitem[3] === true
-                        ? userName.map((currVal) => {
-                            if (currVal.email === userSignin.email) {
-                              return currVal.name;
-                            }
-                          })
-                        : null}
-                    </td> */}
+                    <td id="activestatus">{tableitem[2] ? "true" : "false"}</td>
+                    <td id="assignstatus">{tableitem[3] ? "true" : "false"}</td>
                   </tr>
                 )
               )}
@@ -219,15 +165,7 @@ const BookTicket = () => {
             </div>
           </div>
 
-          <div className="showItems">
-            {/* <Button
-              className="btn effect04"
-              data-sm-link-text="removeAll"
-              href="/admin/adminticketlist"
-            >
-              <span>user Ticket List</span>
-            </Button> */}
-          </div>
+          <div className="showItems"></div>
         </div>
       </div>
     </>

@@ -1,4 +1,3 @@
-// import { Button } from "@material-ui/core";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AllUserNav from "../AllUserNav";
@@ -10,24 +9,15 @@ let ticketId = {
 };
 
 const TicketList = (props) => {
-  console.log("pro", props);
-  const userName = JSON.parse(localStorage.getItem("UserValues"));
-  console.log("userName", JSON.stringify(userName.name));
-  const table = JSON.parse(localStorage.getItem("table"));
-  console.log("table", table);
   const [buyTicket, setBuyTicket] = useState(true);
   const handleClick = (i) => {
     const data = JSON.parse(localStorage.getItem("table"));
-    // const passTicketData = JSON.parse(localStorage.getItem("passTicket"));
 
     data[i][2] = buyTicket;
     data[i][3] = buyTicket;
-    // passTicketData[i][2] = buyTicket;
-    // passTicketData[i][3] = buyTicket;
 
     localStorage.setItem("buy", buyTicket);
     localStorage.setItem("table", JSON.stringify(data));
-    // localStorage.setItem("passTicket", JSON.stringify(passTicketData));
 
     setBuyTicket(!buyTicket);
   };
@@ -80,9 +70,6 @@ const TicketList = (props) => {
       <br /> <br /> <br /> <br />
       <br />
       <br />
-      {/* <Button href="/user/userticketdetails" onClick={handleClick}>
-        Buy Ticket
-      </Button> */}
     </div>
   );
 };

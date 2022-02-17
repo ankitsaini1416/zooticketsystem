@@ -1,22 +1,16 @@
 import React, { useState } from "react";
-// import { Button } from "@material-ui/core";
 
 import Checkbox from "@material-ui/core/Checkbox";
 import AllNav from "../AllNav";
 
 const userName = JSON.parse(localStorage.getItem("UserValues"));
 const userSignin = JSON.parse(localStorage.getItem("UserSigninValues"));
-// console.log("userName2", JSON.stringify(userName[0].name), userName);
 
 const AdminTicketList = () => {
-  const table = JSON.parse(localStorage.getItem("table"));
-  console.log("table", table);
-  // const buyticket = JSON.parse(localStorage.getItem("buytickets"));
   const [birds, setBirds] = useState(true);
   const data = JSON.parse(localStorage.getItem("passTicket"));
 
   const handleClick = (i) => {
-    console.log("data", data, i);
     data[i][4].bird = birds;
     localStorage.setItem("birds", birds);
 
@@ -144,7 +138,6 @@ const AdminTicketList = () => {
               )}
             </td>
             <td>
-              {console.log(tableitem[3])}
               {tableitem[3] === true
                 ? userName.map((currVal) => {
                     console.log("curr", currVal);
@@ -160,7 +153,6 @@ const AdminTicketList = () => {
       </table>
       <br />
       <br />
-      {/* <Button href="/admin/adminticketdetails">Admin Ticket Details</Button> */}
     </div>
   );
 };
