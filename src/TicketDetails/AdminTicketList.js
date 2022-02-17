@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { Button } from "@material-ui/core";
+// import { Button } from "@material-ui/core";
 
 import Checkbox from "@material-ui/core/Checkbox";
+import AllNav from "../AllNav";
+
+const userName = JSON.parse(localStorage.getItem("UserValues"));
+const userSignin = JSON.parse(localStorage.getItem("UserSigninValues"));
+// console.log("userName2", JSON.stringify(userName[0].name), userName);
 
 const AdminTicketList = () => {
-  const userName = JSON.parse(localStorage.getItem("UserValues"));
-  const userSignin = JSON.parse(localStorage.getItem("UserSigninValues"));
-
-  console.log("userName", JSON.stringify(userName.name));
   const table = JSON.parse(localStorage.getItem("table"));
   console.log("table", table);
-  const buyticket = JSON.parse(localStorage.getItem("buytickets"));
+  // const buyticket = JSON.parse(localStorage.getItem("buytickets"));
   const [birds, setBirds] = useState(true);
   const data = JSON.parse(localStorage.getItem("passTicket"));
 
@@ -60,6 +61,7 @@ const AdminTicketList = () => {
 
   return (
     <div>
+      <AllNav />
       <h1>Admin Ticket List</h1>
       <table>
         <tr>
@@ -142,20 +144,23 @@ const AdminTicketList = () => {
               )}
             </td>
             <td>
-              {cancelTicket === false
+              {console.log(tableitem[3])}
+              {tableitem[3] === true
                 ? userName.map((currVal) => {
+                    console.log("curr", currVal);
                     if (currVal.email === userSignin.email) {
                       return currVal.name;
                     }
+                    return "";
                   })
-                : null}
+                : ""}
             </td>
           </tr>
         ))}
       </table>
       <br />
       <br />
-      <Button href="/admin/adminticketdetails">Admin Ticket Details</Button>
+      {/* <Button href="/admin/adminticketdetails">Admin Ticket Details</Button> */}
     </div>
   );
 };

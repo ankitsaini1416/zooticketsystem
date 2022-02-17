@@ -10,8 +10,8 @@ import BookTicket from "./TicketDetails/BookTicket";
 import TicketList from "./TicketDetails/TicketList";
 import AdminTicketList from "./TicketDetails/AdminTicketList";
 import UserTicketDetails from "./TicketDetails/UserTicketDetails";
-// import AdminTicketDetails from "./TicketDetails/AdminTicketDetails";
-import AllNav from "./AllNav";
+import AdminTicketDetails from "./TicketDetails/AdminTicketDetails";
+// import AllNav from "./AllNav";
 
 const App = () => {
   return (
@@ -20,11 +20,11 @@ const App = () => {
         <Route exact path="/">
           <Navbar />
         </Route>
-        <AllNav />
+
         <Route exact path="/admin/adminlogin" component={AdminLogin} />
         <Route exact path="/user/usersignup" component={UserSignUp} />
         <Route exact path="/user/usersignin" component={UserSignIn} />
-        <Route path="/admin/UsersList" component={UsersList} />
+        <Route path="/admin/UsersList" component={UsersList}></Route>
         <Route exact path="/admin/addticket" component={BookTicket} />
         <Route
           exact
@@ -38,11 +38,11 @@ const App = () => {
           path="/user/userticketdetails"
           component={UserTicketDetails}
         />
-        {/* <Route
+        <Route
           exact
           path="/admin/adminticketdetails"
           component={AdminTicketDetails}
-        /> */}
+        />
       </Switch>
     </>
   );

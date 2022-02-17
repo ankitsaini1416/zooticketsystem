@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const AllNav = () => {
+const AllUserNav = () => {
   return (
     <>
       <div className="container-fluid nav_bg">
@@ -20,9 +20,9 @@ const AllNav = () => {
                         className="disabled"
                         exact
                         // className="nav-link"
-                        to="/admin/UsersList"
+                        to="/user/ticketlist"
                       >
-                        usersList
+                        UserTicketList
                       </NavLink>
                     </li>
                     <li className="nav-item">
@@ -31,32 +31,9 @@ const AllNav = () => {
                         className="disabled"
                         exact
                         // className="nav-link"
-                        to="/admin/addticket"
+                        to="/user/userticketdetails"
                       >
-                        addTicket
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                        activeClassName="menu-active"
-                        className="disabled"
-                        exact
-                        // className="nav-link"
-                        to="/admin/adminticketlist"
-                      >
-                        adminTicketList
-                      </NavLink>
-                    </li>
-
-                    <li className="nav-item">
-                      <NavLink
-                        activeClassName="menu-active"
-                        className="disabled"
-                        exact
-                        // className="nav-link"
-                        to="/admin/adminticketdetails"
-                      >
-                        AdminTicketDetails
+                        UserTicketDetails
                       </NavLink>
                     </li>
                   </ul>
@@ -70,4 +47,4 @@ const AllNav = () => {
   );
 };
 
-export default AllNav;
+export default AllUserNav;

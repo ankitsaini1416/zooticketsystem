@@ -1,6 +1,7 @@
-import { Button } from "@material-ui/core";
+// import { Button } from "@material-ui/core";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import AllUserNav from "../AllUserNav";
 
 let ticketId = {
   general: "yellow",
@@ -32,6 +33,7 @@ const TicketList = (props) => {
   };
   return (
     <div>
+      <AllUserNav />
       <h1>Ticket List</h1>
       <table>
         <tr>

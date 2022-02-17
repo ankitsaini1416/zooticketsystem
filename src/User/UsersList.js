@@ -1,8 +1,9 @@
 import * as React from "react";
 import { styled } from "@mui/system";
 import TablePaginationUnstyled from "@mui/base/TablePaginationUnstyled";
+import AllNav from "../AllNav";
 
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 
 const rows = JSON.parse(localStorage.getItem("UserValues"));
 
@@ -127,6 +128,7 @@ export default function UsersList() {
 
   return (
     <Root sx={{ width: 500, maxWidth: "100%" }}>
+      <AllNav />
       <table aria-label="custom pagination table">
         <thead>
           <tr>
@@ -150,7 +152,7 @@ export default function UsersList() {
                 {row.email}
               </td>
               <td style={{ width: 120 }} align="right">
-                {row.filename}
+                <img alt="user pic" src={row.file} />
               </td>
             </tr>
           ))}
@@ -187,7 +189,7 @@ export default function UsersList() {
       <br />
       <br />
 
-      <NavLink to="/admin/addticket">Show Ticket</NavLink>
+      {/* <NavLink to="/admin/addticket">Show Ticket</NavLink> */}
     </Root>
   );
 }

@@ -2,20 +2,21 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 // import { addTodo, deleteTodo } from "../actions";
 import { addTodo } from "../actions";
+import AllNav from "../AllNav";
 
 // import { FontAwesomeIcon } from "font-awesome";
 // import { incNumber, decNumber } from "../actions";
-import Checkbox from "@material-ui/core/Checkbox";
+// import Checkbox from "@material-ui/core/Checkbox";
 import { Button } from "@material-ui/core";
 const BookTicket = () => {
-  const userSignin = JSON.parse(localStorage.getItem("UserSigninValues"));
+  // const userSignin = JSON.parse(localStorage.getItem("UserSigninValues"));
   // console.log("ticketVal", ticketVal);
   // const [inputData, setInputData] = useState("");
   const [inc, setInc] = useState(0);
   const [ticketNo, setTicketNo] = useState("");
-  const [active, setActive] = useState(false);
+  const [active] = useState(false);
   const ticketVal = localStorage.getItem("ticketType");
-  const [assigned, setAssigned] = useState(false);
+  const [assigned] = useState(false);
 
   // const handleClick = (i) => {
   //   const data = JSON.parse(localStorage.getItem("table"));
@@ -92,13 +93,14 @@ const BookTicket = () => {
     localStorage.setItem("ticketType", event.target.value);
   };
 
-  const userName = JSON.parse(localStorage.getItem("UserValues"));
+  // const userName = JSON.parse(localStorage.getItem("UserValues"));
   // console.log("userName", userName.name);
 
   return (
     <>
       <div className="main-div">
         <div className="child-div">
+          <AllNav />
           <table>
             <tr>
               <th>Ticket Category</th>
@@ -168,11 +170,11 @@ const BookTicket = () => {
                 <th>Active</th>
                 <th>Assigned</th>
 
-                {JSON.parse(localStorage.getItem("table"))?.map(
+                {/* {JSON.parse(localStorage.getItem("table"))?.map(
                   (tableitem, i) => (
                     <th key={i}>{tableitem[3] === true ? "Name" : ""}</th>
                   )
-                )}
+                )} */}
               </tr>
 
               {JSON.parse(localStorage.getItem("table"))?.map(
@@ -199,7 +201,7 @@ const BookTicket = () => {
                       {tableitem[3] ? "true" : "false"}
                     </td>
 
-                    <td>
+                    {/* <td>
                       {tableitem[3] === true
                         ? userName.map((currVal) => {
                             if (currVal.email === userSignin.email) {
@@ -207,7 +209,7 @@ const BookTicket = () => {
                             }
                           })
                         : null}
-                    </td>
+                    </td> */}
                   </tr>
                 )
               )}
@@ -218,13 +220,13 @@ const BookTicket = () => {
           </div>
 
           <div className="showItems">
-            <Button
+            {/* <Button
               className="btn effect04"
               data-sm-link-text="removeAll"
               href="/admin/adminticketlist"
             >
               <span>user Ticket List</span>
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

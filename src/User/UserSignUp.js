@@ -3,8 +3,8 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 // import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+// import FormControlLabel from "@material-ui/core/FormControlLabel";
+// import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -18,6 +18,9 @@ import TextError from "./TextError";
 import { Field } from "formik";
 // import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { useHistory } from "react-router-dom";
+// import { getFilledInputUtilityClass } from "@mui/material";
+// import BaseImage from "../BaseImage";
+import FileBase64 from "react-file-base64";
 
 function Copyright() {
   return (
@@ -51,14 +54,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserSignUp = () => {
+const UserSignUp = (props) => {
+  console.log("props", props);
   let history = useHistory();
   const initialValues = {
     name: "",
     phonenumber: "",
     email: "",
     password: "",
-    filename: "",
+    file: "",
   };
   const validationSchema = Yup.object({
     name: Yup.string().required("Name Required !"),
@@ -69,11 +73,18 @@ const UserSignUp = () => {
     password: Yup.string().required("Password Required !"),
   });
   const classes = useStyles();
+  const getFiles = (e) => {
+    console.log(e);
+    localStorage.setItem("files", JSON.stringify(e[0].base64));
+  };
   const onSubmit = function (values, { resetForm }) {
     var existingEntries = JSON.parse(localStorage.getItem("UserValues"));
     if (existingEntries == null) existingEntries = [];
+    values.file = JSON.parse(localStorage.getItem("files"));
+    console.log("img", values.file);
     existingEntries.push(values);
     localStorage.setItem("UserValues", JSON.stringify(existingEntries));
+
     resetForm();
     return history.push("/user/usersignin");
   };
@@ -95,7 +106,16 @@ const UserSignUp = () => {
             validationSchema={validationSchema}
           >
             <Form>
-              <Field type="file" id="myFile" name="filename" />
+              {/* <Field type="file" id="myFile" name="filename" /> */}
+              <FileBase64
+                type="file"
+                name="file"
+                multiple={true}
+                onDone={(e) => {
+                  console.log(e);
+                  getFiles(e);
+                }}
+              />
 
               <br />
               <lable htmlFor="name">Name:</lable>
