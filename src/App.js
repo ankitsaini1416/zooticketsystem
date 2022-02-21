@@ -11,7 +11,6 @@ import TicketList from "./TicketDetails/TicketList";
 import AdminTicketList from "./TicketDetails/AdminTicketList";
 import UserTicketDetails from "./TicketDetails/UserTicketDetails";
 import AdminTicketDetails from "./TicketDetails/AdminTicketDetails";
-// import AllNav from "./AllNav";
 
 const App = () => {
   return (
